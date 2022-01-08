@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { AppContainer } from "./app.styles";
+import WeatherDetails from "./components/WeatherDetails";
+import { WeatherInfo, useGetWeather } from "./utils/useGetInfo";
 
-function App() {
+export const App = () => {
+  //const [tempInfo, setTempInfo] = useState({});
+  const tempInfo: WeatherInfo | undefined = useGetWeather();
+  //const temp = tempInfo as WeatherInfo;
+  console.log("tempInfo = ", tempInfo);
+  //	{ temp, humidity, pressure, weatherType, speed, country, sunset } = tempInfo as WeatherInfo;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      {tempInfo && <WeatherDetails {...tempInfo} />}
+      Card will go here
+    </AppContainer>
   );
-}
+};
 
 export default App;
