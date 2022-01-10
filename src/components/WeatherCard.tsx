@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { WeatherInfo } from "../utils/useGetInfo";
+import { useState, useEffect } from "react";
+import { WeatherCardProps } from "./WeatherCard.props";
 import * as S from "./weatherCard.styles";
 
 function WeatherCard({
@@ -10,20 +10,9 @@ function WeatherCard({
   name,
   speed,
   country,
-  sunset,
-}: WeatherInfo) {
+}: WeatherCardProps) {
   const [weatherState, setWeatherState] = useState("");
-  console.log(
-    "WeatherCard tempInfo = ",
-    temp,
-    humidity,
-    pressure,
-    weatherType,
-    name,
-    speed,
-    country,
-    sunset
-  );
+
   useEffect(() => {
     if (weatherType) {
       switch (weatherType) {

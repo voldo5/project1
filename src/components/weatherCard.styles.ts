@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
+  grid-area: card1;
   width: clamp(192px, 50vw, 320px);
   height: clamp(120px, 32vw, 200px);
   cursor: pointer;
@@ -14,7 +15,6 @@ export const CardContainer = styled.div`
     "hicon hval picon pval sicon sval" 0.7fr
     "hicon hval picon pval sicon sval" 0.7fr
     / 1fr 1.5fr 1fr 1.5fr 1fr 1.5fr;
-  text-align: center;
   grid-gap: 0px;
   background: var(--color-grey-light);
 `;

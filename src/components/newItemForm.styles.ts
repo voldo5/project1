@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
+//max-width: 300px;
+//width: 80%;
 export const NewItemFormContainer = styled.div`
-  max-width: 300px;
+  grid-area: card2;
+  width: clamp(192px, 50vw, 320px);
+  max-width: 80%;
   display: flex;
   flex-direction: column;
-  width: 100%;
   align-items: flex-start;
 `;
 

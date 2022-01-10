@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { useFocus } from "../utils/useFocus";
-// import {
-//   NewItemFormContainer,
-//   NewItemButton,
-//   NewItemInput
-// } from "./styles"
+import { NewItemFormProps } from "./NewItemForm.props";
 import * as S from "./newItemForm.styles";
 
-type NewItemFormProps = {
-  onAdd(text: string): void;
-};
-
-export const NewItemForm = ({ onAdd }: NewItemFormProps) => {
+export const NewItemForm = (props: NewItemFormProps): JSX.Element => {
   const [text, setText] = useState("");
+  const [showForm, setShowForm] = useState(false);
   const inputRef = useFocus();
 
-  const handleAddText = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const { onAdd } = props;
+
+  const handleAddText = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ): void => {
     if (event.key === "Enter") {
       onAdd(text);
     }
@@ -29,7 +26,14 @@ export const NewItemForm = ({ onAdd }: NewItemFormProps) => {
         onChange={(e) => setText(e.target.value)}
         onKeyPress={handleAddText}
       />
-      <S.NewItemButton onClick={() => onAdd(text)}>Create</S.NewItemButton>
+      <S.NewItemButton
+        onClick={() => {
+          onAdd(text);
+          setShowForm(true);
+        }}
+      >
+        Create
+      </S.NewItemButton>
     </S.NewItemFormContainer>
   );
 };
