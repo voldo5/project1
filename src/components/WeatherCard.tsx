@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
 import { WeatherCardProps } from "./WeatherCard.props";
 import * as S from "./weatherCard.styles";
+import { useGetWeather } from "../utils/useGetWeather";
 
-function WeatherCard({
-  temp,
-  humidity,
-  pressure,
-  weatherType,
-  name,
-  speed,
-  country,
-}: WeatherCardProps) {
+type CardProps = {
+  text: string;
+  id: string;
+};
+
+function WeatherCard({ text }: CardProps): JSX.Element {
   const [weatherState, setWeatherState] = useState("");
-
+  const { temp, humidity, pressure, weatherType, name, speed, country } =
+    useGetWeather("kyiv");
+  //const { onAdd } = props;
+  //   if ( undefined ) (
+  //const { temp, humidity, pressure, weatherType, name, speed, country } = wInfo;
+  //  );
+  //const { temp, humidity, pressure, weatherType, name, speed, country } = wInfo;
   useEffect(() => {
     if (weatherType) {
       switch (weatherType) {
