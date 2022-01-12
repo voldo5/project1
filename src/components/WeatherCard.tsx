@@ -1,22 +1,22 @@
+import * as React from "react";
 import { useState, useEffect } from "react";
-import { WeatherCardProps } from "./WeatherCard.props";
 import * as S from "./weatherCard.styles";
 import { useGetWeather } from "../utils/useGetWeather";
+//import ReactDOM from "react-dom";
+import FlagIcon from "./FlagIcon.js";
+//import { convertTypeAcquisitionFromJson } from "typescript";
 
 type CardProps = {
   text: string;
   id: string;
 };
 
-function WeatherCard({ text }: CardProps): JSX.Element {
+function WeatherCard({ text, id }: CardProps): JSX.Element {
   const [weatherState, setWeatherState] = useState("");
+
   const { temp, humidity, pressure, weatherType, name, speed, country } =
-    useGetWeather("kyiv");
-  //const { onAdd } = props;
-  //   if ( undefined ) (
-  //const { temp, humidity, pressure, weatherType, name, speed, country } = wInfo;
-  //  );
-  //const { temp, humidity, pressure, weatherType, name, speed, country } = wInfo;
+    useGetWeather(text);
+
   useEffect(() => {
     if (weatherType) {
       switch (weatherType) {
@@ -46,19 +46,23 @@ function WeatherCard({ text }: CardProps): JSX.Element {
     }
   }, [weatherType]);
 
+  const flagProps = {
+    code: country ? country.toLowerCase() : "ua",
+    size: "lg",
+  };
+
   return (
     <>
-      <S.CardContainer>
+      <S.CardContainer gridArea={id}>
         <S.WeatherIcon>
           <i className={`wi ${weatherState}`}></i>
         </S.WeatherIcon>
-
         <S.WeatherCondition>{weatherType}</S.WeatherCondition>
-
         <S.Place>
+          <FlagIcon code={flagProps.code} size={flagProps.size} />
+          &nbsp;&nbsp;&nbsp;
           {name}, {country}
         </S.Place>
-
         <S.Temperature>
           <span>{temp}&deg;</span>
         </S.Temperature>
@@ -74,7 +78,6 @@ function WeatherCard({ text }: CardProps): JSX.Element {
             day: "numeric",
           })}
         </S.CalendarDate2>
-
         <S.HumidityIcon>
           <i className={"wi wi-humidity"}></i>
         </S.HumidityIcon>
@@ -82,7 +85,6 @@ function WeatherCard({ text }: CardProps): JSX.Element {
           {humidity} <br />
           Humidity
         </S.HumidityValue>
-
         <S.PressureIcon>
           <i className={"wi wi-rain"}></i>
         </S.PressureIcon>
@@ -90,7 +92,6 @@ function WeatherCard({ text }: CardProps): JSX.Element {
           {pressure} <br />
           Pressure
         </S.PressureValue>
-
         <S.WindIcon>
           <i className={"wi wi-strong-wind"}></i>
         </S.WindIcon>

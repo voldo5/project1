@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
-export const CardContainer = styled.div`
-  grid-area: card1;
-  width: clamp(192px, 50vw, 320px);
-  height: clamp(120px, 32vw, 200px);
+type CardContainerProps = {
+  gridArea: string;
+};
+
+export const CardContainer = styled.div<CardContainerProps>`
+  grid-area: ${(props) => "area-" + props.gridArea};
+  max-width: 320px;
+  min-width: 192px;
+  max-height: 200px;
   cursor: pointer;
   border-radius: 2px;
   display: grid;
@@ -17,6 +22,8 @@ export const CardContainer = styled.div`
     / 1fr 1.5fr 1fr 1.5fr 1fr 1.5fr;
   grid-gap: 0px;
   background: var(--color-grey-light);
+  justify-self: center;
+  align-self: stretch;
 `;
 
 export const WeatherIcon = styled.div`
@@ -26,13 +33,13 @@ export const WeatherIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  font-size: clamp(1.6rem, -0.875rem + 8.333vw, 2.6rem);
+  font-size: clamp(1.6rem, -0.875rem + 5.333vw, 2.6rem);
 `;
 
 export const WeatherCondition = styled.div`
   grid-area: condition;
   text-transform: uppercase;
-  font-size: clamp(0.8rem, -0.875rem + 7.333vw, 1.2rem);
+  font-size: clamp(0.8rem, -1.1rem + 4.3vw, 1.2rem);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -41,9 +48,10 @@ export const WeatherCondition = styled.div`
 export const Place = styled.div`
   grid-area: place;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  font-size: clamp(0.7rem, -0.775rem + 7.333vw, 1.1rem);
+  font-size: clamp(0.7rem, -1.1rem + 4.3vw, 0.9rem);
+  font-weight: 500;
 `;
 
 export const Temperature = styled.div`
@@ -53,7 +61,7 @@ export const Temperature = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  font-size: clamp(1rem, -0.875rem + 8.333vw, 2rem);
+  font-size: clamp(1.1rem, -0.9rem + 6.3vw, 2rem);
 `;
 
 export const CalendarDate1 = styled.div`
@@ -63,14 +71,14 @@ export const CalendarDate1 = styled.div`
   align-items: flex-end;
   justify-content: space-around;
   color: var(--color-grey-light);
-  font-size: clamp(0.7rem, -0.8rem + 6vw, 1.1rem);
+  font-size: clamp(0.7rem, -0.9rem + 3.8vw, 1.1rem);
   font-weight: 600;
 `;
 
 export const CalendarDate2 = styled(CalendarDate1)`
   grid-area: date2;
   align-items: flex-start;
-  font-size: clamp(0.7rem, -0.8rem + 5vw, 1.1rem);
+  font-size: clamp(0.7rem, -0.9rem + 3.8vw, 1.1rem);
 `;
 
 export const HumidityIcon = styled.div`
@@ -79,7 +87,7 @@ export const HumidityIcon = styled.div`
   align-items: center;
   justify-content: space-around;
   color: var(--color-green3);
-  font-size: clamp(0.7rem, -0.8rem + 5vw, 1.1rem);
+  font-size: clamp(0.8rem, -0.9rem + 4vw, 1.1rem);
   font-weight: 600;
   padding-left: 4px;
 `;
@@ -90,7 +98,7 @@ export const HumidityValue = styled.div`
   align-items: center;
   justify-content: space-around;
   color: var(----color-dark1);
-  font-size: clamp(0.7rem, -0.8rem + 5vw, 1rem);
+  font-size: clamp(0.7rem, -0.9rem + 4vw, 1rem);
   font-weight: 400;
 `;
 

@@ -28,18 +28,18 @@ export const appStateReducer = (
   action: Action
 ): AppState | void => {
   switch (action.type) {
-    case "ADD_LIST": {
-      draft.list.tasks.push({
-        id: nanoid(),
-        text: action.payload,
-      });
-      break;
-    }
+    // case "ADD_LIST": {
+    //   draft.list.tasks.push({
+    //     id: nanoid(),
+    //     text: action.payload,
+    //   });
+    //   break;
+    // }
     case "ADD_TASK": {
-      const { text } = action.payload;
+      const { text, taskId } = action.payload;
       draft.list.tasks.push({
-        id: nanoid(),
-        text,
+        id: taskId,
+        text: text,
       });
       break;
     }

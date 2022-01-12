@@ -1,37 +1,26 @@
 import React from "react";
 import { AppContainer } from "./app.styles";
 import WeatherCard from "./components/WeatherCard";
-import { useGetWeather } from "./utils/useGetWeather";
-import { WeatherCardProps } from "./components/WeatherCard.props";
 import { NewItemForm } from "./components/NewItemForm";
 import { useAppState } from "./state/AppStateContext";
+import { addTask } from "./state/actions";
 
 export const App = () => {
   const { list, dispatch } = useAppState();
-  //const [tempInfo, setTempInfo] = useState({});
-  const tempInfo: WeatherCardProps = useGetWeather("kyiv");
-  let city: string = "kyiv";
-  let id: string = "1";
-
-  //<Column text={list.text} key={list.id} id={list.id} />
-  //{tempInfo && <WeatherCard text={city} id={id} />}
-  console.log("App tempInfo = ", tempInfo);
+  console.log("list = ", list);
+  let newItemFormId: string = (list.tasks.length + 1).toString();
   return (
     <AppContainer>
       {list.tasks.map((task) => (
-        <WeatherCard text={task.text} id={task.id} />
+        <WeatherCard text={task.text} id={task.id} key={task.id} />
       ))}
 
       <NewItemForm
-        onAdd={(text: string) => {
-          text = "new";
-        }}
+        id={newItemFormId}
+        onAdd={(text) => dispatch(addTask(text, newItemFormId))}
       ></NewItemForm>
     </AppContainer>
   );
 };
-
-//className={cn(className, styles.header)} {...props}
-//<NewItemForm { ...onAdd = ("New card") => {"new"}} {...props}></NewItemForm>
 
 export default App;

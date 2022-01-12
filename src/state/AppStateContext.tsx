@@ -14,14 +14,20 @@ const AppStateContext = createContext<AppStateContextProps>(
   {} as AppStateContextProps
 );
 
+// Cherkasy; Odesa, UA; Tel Aviv, IL; Jerusalem, IL, Boston, US; Mississauga, CA; Khmelnytskyi, UA;
 const appData: AppState = {
   list: {
     id: "0",
     text: "",
     tasks: [
-      { id: "0", text: "kiyv" },
-      { id: "1", text: "mumbai" },
-      { id: "2", text: "Haifa, IL" },
+      { id: "1", text: "kyiv" },
+      { id: "2", text: "Cherkasy" },
+      { id: "3", text: "Khmelnytskyi, UA" },
+      { id: "4", text: "Haifa, IL" },
+      { id: "5", text: "Tel Aviv, IL" },
+      { id: "6", text: "Toronto, CA" },
+      { id: "7", text: "Mississauga, CA" },
+      { id: "8", text: "Rome, IT" },
     ],
   },
 };
@@ -40,16 +46,6 @@ export const AppStateProvider: FC = ({ children }) => {
     </AppStateContext.Provider>
   );
 };
-type Item = {
-  id: string;
-};
-
-// export const findItemIndexById = <TItem extends Item>(
-//   items: TItem[],
-//   id: string
-// ) => {
-//   return items.findIndex((item: TItem) => item.id === id);
-// };
 
 export const useAppState = () => {
   return useContext(AppStateContext);
