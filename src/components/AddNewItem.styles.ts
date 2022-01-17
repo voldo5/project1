@@ -1,5 +1,4 @@
 import styled from "styled-components";
-//import { AddNewItemProps } from "./AddNewItem.props";
 
 type AddItemButtonProps = {
   dark?: boolean;

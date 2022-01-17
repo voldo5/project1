@@ -8,7 +8,7 @@ export const NewItemForm = (props: NewItemFormProps): JSX.Element => {
   const [showForm, setShowForm] = useState(false);
   const inputRef = useFocus();
 
-  const { id, onAdd } = props;
+  const { onAdd } = props;
 
   const handleAddText = (
     event: React.KeyboardEvent<HTMLInputElement>
@@ -19,7 +19,7 @@ export const NewItemForm = (props: NewItemFormProps): JSX.Element => {
   };
 
   return (
-    <S.NewItemFormContainer newItemFormId={id}>
+    <S.NewItemFormContainer>
       <S.NewItemInput
         ref={inputRef}
         value={text}

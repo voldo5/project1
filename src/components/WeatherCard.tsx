@@ -2,24 +2,54 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import * as S from "./weatherCard.styles";
 import { useGetWeather } from "../utils/useGetWeather";
-//import ReactDOM from "react-dom";
 import FlagIcon from "./FlagIcon.js";
-//import { convertTypeAcquisitionFromJson } from "typescript";
+import { useRef } from "react";
+import { useItemDrag } from "../utils/useItemDrag";
+import { useAppState } from "../state/AppStateContext";
+import { useDrop } from "react-dnd";
+import { moveTask, addTask } from "../state/actions";
+import { isHidden } from "../utils/isHidden";
+import { WeatherCardProps } from "./WeatherCard.props";
 
 type CardProps = {
   text: string;
   id: string;
 };
 
-function WeatherCard({ text, id }: CardProps): JSX.Element {
+//idTask
+function WeatherCard(cardProps: CardProps): JSX.Element {
   const [weatherState, setWeatherState] = useState("");
 
-  const { temp, humidity, pressure, weatherType, name, speed, country } =
-    useGetWeather(text);
+  let { draggedItem, list, findItemIndexById, dispatch } = useAppState();
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [, drop] = useDrop({
+    accept: "CARD",
+    hover() {
+      if (!draggedItem) {
+        return;
+      }
+      if (draggedItem.type === "CARD") {
+        if (draggedItem.id === cardProps.id) {
+          return;
+        }
+        dispatch(moveTask(draggedItem.id, cardProps.id));
+      }
+    },
+  });
+
+  const { drag } = useItemDrag({
+    id: cardProps.id,
+    text: cardProps.text,
+    type: "CARD",
+  });
+
+  let weather: WeatherCardProps = useGetWeather(cardProps.text);
 
   useEffect(() => {
-    if (weatherType) {
-      switch (weatherType) {
+    if (weather.weatherType) {
+      switch (weather.weatherType) {
         case "Clouds":
           setWeatherState("wi-day-cloudy");
           break;
@@ -44,27 +74,32 @@ function WeatherCard({ text, id }: CardProps): JSX.Element {
           break;
       }
     }
-  }, [weatherType]);
+  }, [weather.weatherType]);
+
+  drag(drop(ref));
 
   const flagProps = {
-    code: country ? country.toLowerCase() : "ua",
+    code: weather.country ? weather.country.toLowerCase() : "ua",
     size: "lg",
   };
 
   return (
     <>
-      <S.CardContainer gridArea={id}>
+      <S.CardContainer
+        ref={ref}
+        isHidden={isHidden(draggedItem, "CARD", cardProps.id)}
+      >
         <S.WeatherIcon>
           <i className={`wi ${weatherState}`}></i>
         </S.WeatherIcon>
-        <S.WeatherCondition>{weatherType}</S.WeatherCondition>
+        <S.WeatherCondition>{weather.weatherType}</S.WeatherCondition>
         <S.Place>
           <FlagIcon code={flagProps.code} size={flagProps.size} />
           &nbsp;&nbsp;&nbsp;
-          {name}, {country}
+          {weather.name}, {weather.country}
         </S.Place>
         <S.Temperature>
-          <span>{temp}&deg;</span>
+          <span>{weather.temp}&deg;</span>
         </S.Temperature>
         <S.CalendarDate1>
           {new Date().toLocaleString("en-US", {
@@ -82,21 +117,21 @@ function WeatherCard({ text, id }: CardProps): JSX.Element {
           <i className={"wi wi-humidity"}></i>
         </S.HumidityIcon>
         <S.HumidityValue>
-          {humidity} <br />
+          {weather.humidity} <br />
           Humidity
         </S.HumidityValue>
         <S.PressureIcon>
           <i className={"wi wi-rain"}></i>
         </S.PressureIcon>
         <S.PressureValue>
-          {pressure} <br />
+          {weather.pressure} <br />
           Pressure
         </S.PressureValue>
         <S.WindIcon>
           <i className={"wi wi-strong-wind"}></i>
         </S.WindIcon>
         <S.WindValue>
-          {speed} <br />
+          {weather.speed} <br />
           Wind
         </S.WindValue>
       </S.CardContainer>

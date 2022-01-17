@@ -25,7 +25,6 @@ export const getWeatherInfo = async (
       speed,
       country,
     };
-    console.log("myNewWeatherInfo = ", myNewWeatherInfo);
 
     return myNewWeatherInfo;
   } catch (error) {

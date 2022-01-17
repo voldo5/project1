@@ -1,21 +1,24 @@
-import { Action } from "./actions";
+import { Action, moveTask } from "./actions";
 import { nanoid } from "nanoid";
-import { findItemIndexById } from "../utils/arrayUtils";
+import { findItemIndexById, moveItem } from "../utils/arrayUtils";
+import { DragItem } from "../DragItem";
+import { WeatherCardProps } from "../components/WeatherCard.props";
 
 export type Task = {
-  id: string;
+  idTask: string;
   text: string;
 };
 export type List = {
-  id: string;
+  idList: string;
   text: string;
   tasks: Task[];
 };
 export type AppState = {
   list: List;
+  draggedItem: DragItem | null;
 };
 
-// Here we renamed the state into draft, so we know that we can mutate it. Also we’ve
+// useImmerReducer. Here we renamed the state into draft, so we know that we can mutate it. Also we’ve
 // changed the ADD_LIST case so that it just pushes the new list object to the lists array.
 // We don’t need to return the new state value anymore, ImmerJS will handle it
 // automatically.
@@ -28,19 +31,28 @@ export const appStateReducer = (
   action: Action
 ): AppState | void => {
   switch (action.type) {
-    // case "ADD_LIST": {
-    //   draft.list.tasks.push({
-    //     id: nanoid(),
-    //     text: action.payload,
-    //   });
-    //   break;
-    // }
+    case "SET_DRAGGED_TASK": {
+      draft.draggedItem = action.payload;
+      break;
+    }
     case "ADD_TASK": {
       const { text, taskId } = action.payload;
       draft.list.tasks.push({
-        id: taskId,
+        idTask: nanoid(),
         text: text,
       });
+      break;
+    }
+    case "MOVE_TASK": {
+      console.log("MOVE_TASK START idList = ", draft.list.idList);
+      if (draft.list.idList === "1") return;
+
+      const { draggedId, hoverId } = action.payload;
+      const dragIndex = findItemIndexById(draft.list.tasks, draggedId);
+      const hoverIndex = findItemIndexById(draft.list.tasks, hoverId);
+      console.log("dragIndex=", dragIndex, "hoverIndex=", hoverIndex);
+
+      draft.list.tasks = moveItem(draft.list.tasks, dragIndex, hoverIndex);
       break;
     }
     // ...
@@ -49,21 +61,3 @@ export const appStateReducer = (
     }
   }
 };
-
-// export const appStateReducer = (draft: AppState, action: Action): AppState | void => {
-//   switch (action.type) {
-//     case "ADD_LIST": {
-//       return {
-//         ...state,
-//         lists: [
-//           ...state.lists,
-//           { id: nanoid(), text: action.payload, tasks: [] },
-//         ],
-//       };
-//     }
-//     // ...
-//     default: {
-//       return state;
-//     }
-//   }
-// };

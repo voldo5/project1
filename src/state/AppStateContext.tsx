@@ -3,8 +3,10 @@ import { appStateReducer, AppState, List, Task } from "./appStateReducer";
 import { Action } from "./actions";
 import { useImmerReducer } from "use-immer";
 import { findItemIndexById } from "../utils/arrayUtils";
+import { DragItem } from "../DragItem";
 
 type AppStateContextProps = {
+  draggedItem: DragItem | null;
   list: List;
   findItemIndexById(items: Task[], id: string): number;
   dispatch: Dispatch<Action>;
@@ -15,33 +17,51 @@ const AppStateContext = createContext<AppStateContextProps>(
 );
 
 // Cherkasy; Odesa, UA; Tel Aviv, IL; Jerusalem, IL, Boston, US; Mississauga, CA; Khmelnytskyi, UA;
+// const appData: AppState = {
+//   list: {
+//     idList: "0",
+//     text: "",
+//     tasks: [
+//       { idTask: "0", text: "Kyiv" },
+//       { idTask: "1", text: "Haifa" },
+//     ],
+//   },
+//   draggedItem: null,
+// };
+
 const appData: AppState = {
+  draggedItem: null,
   list: {
-    id: "0",
+    idList: "0",
     text: "",
     tasks: [
-      { id: "1", text: "kyiv" },
-      { id: "2", text: "Cherkasy" },
-      { id: "3", text: "Khmelnytskyi, UA" },
-      { id: "4", text: "Haifa, IL" },
-      { id: "5", text: "Tel Aviv, IL" },
-      { id: "6", text: "Toronto, CA" },
-      { id: "7", text: "Mississauga, CA" },
-      { id: "8", text: "Rome, IT" },
+      { idTask: "0", text: "kyiv" },
+      { idTask: "1", text: "Cherkasy" },
+      { idTask: "2", text: "Khmelnytskyi, UA" },
+      { idTask: "3", text: "Haifa, IL" },
+      { idTask: "4", text: "Tel Aviv, IL" },
+      { idTask: "5", text: "Toronto, CA" },
+      { idTask: "6", text: "Mississauga, CA" },
     ],
   },
 };
-
+// { id: "8", text: "Rome, IT" },
+//use useImmerReducer instead of useReducer
 export const AppStateProvider: FC = ({ children }) => {
   const [state, dispatch] = useImmerReducer(appStateReducer, appData);
-  const { list } = state;
-
-  const getTaskByTaskId = (id: string) => {
-    return list.tasks.find((task) => task.id === id || []);
-  };
+  //useImmerReducer<S = any, A = any>(reducer: Reducer<S, A>, initialState: S, initialAction?
+  const { draggedItem, list } = state;
+  console.log("list1 = ", list);
 
   return (
-    <AppStateContext.Provider value={{ list, findItemIndexById, dispatch }}>
+    <AppStateContext.Provider
+      value={{
+        draggedItem,
+        list,
+        findItemIndexById,
+        dispatch,
+      }}
+    >
       {children}
     </AppStateContext.Provider>
   );

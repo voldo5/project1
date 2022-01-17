@@ -1,16 +1,24 @@
 import styled from "styled-components";
 
+// interface DragPreviewContainerProps {
+//   isHidden?: boolean;
+// }
+// export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
+//   opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
+// `;
+
 type CardContainerProps = {
-  gridArea: string;
+  isHidden?: boolean;
 };
 
 export const CardContainer = styled.div<CardContainerProps>`
-  grid-area: ${(props) => "area-" + props.gridArea};
+  opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
   max-width: 320px;
   min-width: 192px;
   max-height: 200px;
   cursor: pointer;
   border-radius: 2px;
+  margin: 1px;
   display: grid;
   grid-template:
     "wicon wicon condition condition condition condition" 1fr
@@ -24,7 +32,33 @@ export const CardContainer = styled.div<CardContainerProps>`
   background: var(--color-grey-light);
   justify-self: center;
   align-self: stretch;
+  flex-grow: 1;
+  flex-shrink: 1;
 `;
+
+// export const CardContainer = styled.div<CardContainerProps>`
+//   grid-area: ${(props) => "area-" + props.gridArea};
+//   opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
+//   max-width: 320px;
+//   min-width: 192px;
+//   max-height: 200px;
+//   cursor: pointer;
+//   border-radius: 2px;
+//   margin: 2px;
+//   display: grid;
+//   grid-template:
+//     "wicon wicon condition condition condition condition" 1fr
+//     "wicon wicon place place place place" 1fr
+//     "temperature temperature temperature date1 date1 date1" 0.9fr
+//     "temperature temperature temperature date2 date2 date2" 0.9fr
+//     "hicon hval picon pval sicon sval" 0.7fr
+//     "hicon hval picon pval sicon sval" 0.7fr
+//     / 1fr 1.5fr 1fr 1.5fr 1fr 1.5fr;
+//   grid-gap: 0px;
+//   background: var(--color-grey-light);
+//   justify-self: center;
+//   align-self: stretch;
+// `;
 
 export const WeatherIcon = styled.div`
   grid-area: wicon;

@@ -1,11 +1,6 @@
 import styled from "styled-components";
 
-type NewItemFormProps = {
-  newItemFormId: string;
-};
-
-export const NewItemFormContainer = styled.div<NewItemFormProps>`
-  grid-area: ${(props) => "area-" + props.newItemFormId};
+export const NewItemFormContainer = styled.div`
   max-width: 80%;
   display: flex;
   flex-direction: column;
