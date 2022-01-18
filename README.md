@@ -1,45 +1,21 @@
 ### Weather Web Application
-
 #### Fully functional weather app with React,Typescript, Styled Components. Functionality includes the ability to show weather cards for different cities, add and remove city cards, sort the cards by drag and drop.
-
 ![alt](./src/assets/WeatherApp.jpg)
-
 ### Key Words:
-
-#### React:
-
-useState, useEffect, useReduce, useContext, useRef
-
-#### Custom Hooks:
-
-useFocus, useAppState, useGetWeather, useImmerReducer, useItemDrag, useDrop
-
-#### Typescript:
-
-fetch, async, await, try, catch, destructuring, spread operator, rest operator, slice, date.toLocaleDateString
-
+#### React:useState, useEffect, useReduce, useContext, useRef
+#### Custom Hooks:useFocus, useAppState, useGetWeather, useImmerReducer, useItemDrag, useDrop
+#### Typescript:fetch, async, await, try, catch, destructuring, spread operator, rest operator, slice, date.toLocaleDateString
 #### API:
-
 Open Weather Api
-
 #### Icons:
-
 Weather icons, React icons, react-flag-icon-css
-
 #### Styled-components :
-
 react component, props
-
 #### CSS:
-
 flex, css grid, fluent typography, clamp, rem, vw, vh
-
 #### npm:
-
-use-immer, react-dnd, react-dnd-html5-backend,react-flag-icon-css, nanoid
-
+use-immer, react-dnd, react-dnd-html5-backend, react-flag-icon-css, nanoid
 #### Installation from zero:
-
 ```js
 npx create-react-app project1
 cd project1
@@ -50,22 +26,16 @@ yarn add react-icons
 yarn add react-flag-icon-css
 yarn start
 ```
-
 #### Links:
-
 https://styled-components.com/
 https://react-icons.github.io/react-icons/
 https://github.com/erikflowers/weather-icons
 https://openweathermap.org/api
 https://www.npmjs.com/package/use-immer
 https://react-dnd.github.io/react-dnd/about
-
 #### Immer
-
 useImmer(initialState) is very similar to useState. When passing a function to the updater, the draft argument can be mutated freely, until the producer ends and the changes will be made immutable and become the next state.
-
 #### React DnD
-
 React DnD is a set of React utilities to help you build complex drag and drop interfaces while keeping your components decoupled.
 
 #### Task: <span style="color:blue"> Setup Less with create-react-app boilerplate, add Ant Design React UI library, get default variables from ant-design default.less file.</span>
