@@ -1,30 +1,46 @@
-## Weather Web Application
+import "./assets/WeatherApp.jpg";
 
-### Fully functional weather app with React and Typescript. Functionality includes the ability to show weather cards for different cities, add and remove city cards, drag and drop sorting the cards.
+### Weather Web Application
 
-![alt](./assets/WeatherApp.jpg)
+#### Fully functional weather app with React and Typescript. Functionality includes the ability to show weather cards for different cities, add and remove city cards, drag and drop sorting the cards.
+
+![alt](./src/assets/WeatherApp.jpg)
 
 G:\Ed\2021.7_30_ReactDevelopmentProjects\51-my-proj1\proj1\src\assets\WeatherApp.jpg
 
-## Key Words:
+### Key Words:
 
-### React: useState, useEffect, useReduce, useContext, useRef
+### React:
 
-### Custom Hooks: useFocus, useAppState, useGetWeather, useImmerReducer, useItemDrag, useDrop
+useState, useEffect, useReduce, useContext, useRef
 
-### Typescript: Key Words: fetch, async, await, try, catch, destructuring, spread operator, rest operator, slice, date.toLocaleDateString
+### Custom Hooks:
 
-### API: Open Weather Api
+useFocus, useAppState, useGetWeather, useImmerReducer, useItemDrag, useDrop
 
-### Icons: Weather icons, React icons, react-flag-icon-css
+### Typescript:
 
-### Styled-components : react component, props
+fetch, async, await, try, catch, destructuring, spread operator, rest operator, slice, date.toLocaleDateString
 
-### CSS: flex, css grid, fluent typography, clamp, rem, vw, vh
+### API:
 
-### npm: use-immer, react-dnd, react-dnd-html5-backend,
+Open Weather Api
 
-### react-flag-icon-css, nanoid
+### Icons:
+
+Weather icons, React icons, react-flag-icon-css
+
+### Styled-components :
+
+react component, props
+
+### CSS:
+
+flex, css grid, fluent typography, clamp, rem, vw, vh
+
+### npm:
+
+use-immer, react-dnd, react-dnd-html5-backend,react-flag-icon-css, nanoid
 
 ### Installation from zero:
 
