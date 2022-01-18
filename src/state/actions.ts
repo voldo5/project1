@@ -26,6 +26,11 @@ interface AddTaskAction {
   type: "ADD_TASK";
   payload: { text: string; taskId: string };
 }
+
+interface DeleteTaskAction {
+  type: "DELETE_TASK";
+  payload: { taskId: string };
+}
 interface MoveListAction {
   type: "MOVE_TASK";
   payload: {
@@ -45,12 +50,23 @@ interface SetDraggedItem {
 
 //  | AddListAction
 
-export type Action = AddTaskAction | MoveListAction | SetDraggedItem;
+export type Action =
+  | AddTaskAction
+  | MoveListAction
+  | SetDraggedItem
+  | DeleteTaskAction;
 
 export const addTask = (text: string, taskId: string): Action => ({
   type: "ADD_TASK",
   payload: {
     text,
+    taskId,
+  },
+});
+
+export const deleteTask = (taskId: string): Action => ({
+  type: "DELETE_TASK",
+  payload: {
     taskId,
   },
 });

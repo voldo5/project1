@@ -10,4 +10,5 @@ export interface WeatherCardProps
   name: WeatherAPI["name"];
   speed: Wind["speed"];
   country: Sys["country"];
+  dt: WeatherAPI["dt"];
 }

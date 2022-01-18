@@ -15,6 +15,7 @@ export const getWeatherInfo = async (
     const { name } = weatherInfo;
     const { speed } = weatherInfo.wind;
     const { country } = weatherInfo.sys;
+    const { dt } = weatherInfo;
 
     const myNewWeatherInfo: WeatherCardProps = {
       temp,
@@ -24,6 +25,7 @@ export const getWeatherInfo = async (
       name,
       speed,
       country,
+      dt,
     };
 
     return myNewWeatherInfo;

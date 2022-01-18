@@ -1,3 +1,134 @@
+## Weather Web Application
+
+### Fully functional weather app with React and Typescript. Functionality includes the ability to show weather cards for different cities, add and remove city cards, drag and drop sorting the cards.
+
+![alt](./assets/WeatherApp.jpg)
+
+G:\Ed\2021.7_30_ReactDevelopmentProjects\51-my-proj1\proj1\src\assets\WeatherApp.jpg
+
+## Key Words:
+
+### React: useState, useEffect, useReduce, useContext, useRef
+
+### Custom Hooks: useFocus, useAppState, useGetWeather, useImmerReducer, useItemDrag, useDrop
+
+### Typescript: Key Words: fetch, async, await, try, catch, destructuring, spread operator, rest operator, slice, date.toLocaleDateString
+
+### API: Open Weather Api
+
+### Icons: Weather icons, React icons, react-flag-icon-css
+
+### Styled-components : react component, props
+
+### CSS: flex, css grid, fluent typography, clamp, rem, vw, vh
+
+### npm: use-immer, react-dnd, react-dnd-html5-backend,
+
+### react-flag-icon-css, nanoid
+
+### Installation from zero:
+
+```js
+npx create-react-app project1
+cd project1
+yarn add use-immer
+yarn add nanoid
+yarn add react-dnd@14.0.1 react-dnd-html5-backend@14.0.0
+yarn add react-icons
+yarn add react-flag-icon-css
+yarn start
+```
+
+### Links:
+
+https://styled-components.com/
+https://react-icons.github.io/react-icons/
+https://github.com/erikflowers/weather-icons
+https://openweathermap.org/api
+https://www.npmjs.com/package/use-immer
+https://react-dnd.github.io/react-dnd/about
+
+### Immer
+
+useImmer(initialState) is very similar to useState. When passing a function to the updater, the draft argument can be mutated freely, until the producer ends and the changes will be made immutable and become the next state.
+
+### React DnD
+
+React DnD is a set of React utilities to help you build complex drag and drop interfaces while keeping your components decoupled.
+
+## Create React App boilerplate with LESS compiler setup
+
+## and Ant Design React UI library.
+
+#### Task: <span style="color:blue"> Setup Less with create-react-app boilerplate, add Ant Design React UI library, get default variables from ant-design default.less file.</span>
+
+There is not such an easy solution to handle compiling **_Less_** stylesheets. This is problematic because to manually configure webpack to compile **_Less_** stylesheets requires us to eject from the default **_create-react-app_** configuration. So, set it up with react app, without having to eject from **_create-react-app_** and modifying webpack config manually. We also add **_antd_** (Ant Design React UI library) to project. The antd use **_Less_** **_language_** extension for CSS, so we show, also, how to get default variables from antd less files.
+
+You can find more details here:
+
+https://dev.to/joefstack/how-to-setup-less-with-react-without-ejecting-1nej
+
+https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less  
+https://github.com/voldo5/cra-less-starter
+
+```js
+npx create-react-app cra-less-starter
+npm install less less-watch-compiler concurrently --save-dev
+```
+
+add file **less-watcher.config.json**
+
+```js
+{
+"watchFolder": "src/",
+"outputFolder": "src/",
+"sourceMap": true,
+"runOnce": false,
+"enableJs": true
+}
+```
+
+```js
+npm install concurrently --save-dev
+```
+
+add to **package.json**
+
+```js
+"scripts": {
+"start": "concurrently --kill-others \"less-watch-compiler --config less-watcher.config.json\" \"react-scripts start\"",
+…
+},
+```
+
+```js
+npm i -S craco-antd antd
+npm install
+npm start
+```
+
+add link to less default variables in **App.less** file
+
+```js
+@import "antd/lib/style/themes/default.less";
+```
+
+and add two variables
+
+```js
+@app-primary: #0f3460;
+@app-secondary: #d9322c;
+```
+
+and, for example, use antd default variable **@height-lg** in **custom-btn** class
+
+```js
+.custom-btn {
+  background: @app-secondary;
+  height: @height-lg + 6;
+}
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

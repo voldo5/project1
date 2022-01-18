@@ -13,6 +13,14 @@ export const useGetWeather = (city: string): WeatherCardProps => {
   useEffect(() => {
     const f = async () => {
       const weatherInfo = await getWeatherInfo(city);
+      console.log("--weatherInfo.dt = ", weatherInfo.dt);
+      let time = new Date(weatherInfo.dt).toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false,
+      });
+      console.log("--weather.dt = ", weatherInfo.dt);
+      console.log("weatherInfoLocale.dt = ", time);
       setWeatherInfoState(weatherInfo);
       //   weatherInfoArray.push(weatherInfo);
     };

@@ -21,7 +21,7 @@ export const CardContainer = styled.div<CardContainerProps>`
   margin: 1px;
   display: grid;
   grid-template:
-    "wicon wicon condition condition condition condition" 1fr
+    "wicon wicon condition condition time dicon" 1fr
     "wicon wicon place place place place" 1fr
     "temperature temperature temperature date1 date1 date1" 0.9fr
     "temperature temperature temperature date2 date2 date2" 0.9fr
@@ -115,6 +115,15 @@ export const CalendarDate2 = styled(CalendarDate1)`
   font-size: clamp(0.7rem, -0.9rem + 3.8vw, 1.1rem);
 `;
 
+export const LocalTime = styled(CalendarDate1)`
+  grid-area: time;
+  font-size: clamp(0.7rem, -0.9rem + 3.8vw, 1.1rem);
+  align-items: flex-end;
+  justify-content: center;
+  background: var(--color-grey-light);
+  color: var(--color-green3);
+`;
+
 export const HumidityIcon = styled.div`
   grid-area: hicon;
   display: flex;
@@ -150,4 +159,17 @@ export const WindIcon = styled(HumidityIcon)`
 
 export const WindValue = styled(HumidityValue)`
   grid-area: sval;
+`;
+
+// export const FaTimes = styled(HumidityIcon)`
+//   grid-area: dicon;
+// `;
+
+export const DeleteIcon = styled(HumidityIcon)`
+  grid-area: dicon;
+  align-items: flex-start;
+  justify-content: flex-end;
+  color: var(--color-green3);
+  margin: 4px;
+  cursor: context-menu;
 `;

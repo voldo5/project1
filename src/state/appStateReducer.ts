@@ -1,6 +1,10 @@
-import { Action, moveTask } from "./actions";
+import { Action } from "./actions";
 import { nanoid } from "nanoid";
-import { findItemIndexById, moveItem } from "../utils/arrayUtils";
+import {
+  findItemIndexById,
+  moveItem,
+  removeItemAtIndex,
+} from "../utils/arrayUtils";
 import { DragItem } from "../DragItem";
 import { WeatherCardProps } from "../components/WeatherCard.props";
 
@@ -53,6 +57,13 @@ export const appStateReducer = (
       console.log("dragIndex=", dragIndex, "hoverIndex=", hoverIndex);
 
       draft.list.tasks = moveItem(draft.list.tasks, dragIndex, hoverIndex);
+      break;
+    }
+    case "DELETE_TASK": {
+      const { taskId } = action.payload;
+      console.log("-----Number(taskId)= ", Number(taskId));
+      const deleteIndex = findItemIndexById(draft.list.tasks, taskId);
+      draft.list.tasks = removeItemAtIndex(draft.list.tasks, deleteIndex);
       break;
     }
     // ...

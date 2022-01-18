@@ -3,11 +3,12 @@ import { useState, useEffect } from "react";
 import * as S from "./weatherCard.styles";
 import { useGetWeather } from "../utils/useGetWeather";
 import FlagIcon from "./FlagIcon.js";
+import { FaTimes } from "react-icons/fa";
 import { useRef } from "react";
 import { useItemDrag } from "../utils/useItemDrag";
 import { useAppState } from "../state/AppStateContext";
 import { useDrop } from "react-dnd";
-import { moveTask, addTask } from "../state/actions";
+import { moveTask, addTask, deleteTask } from "../state/actions";
 import { isHidden } from "../utils/isHidden";
 import { WeatherCardProps } from "./WeatherCard.props";
 
@@ -46,6 +47,7 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
   });
 
   let weather: WeatherCardProps = useGetWeather(cardProps.text);
+  console.log("weather.dt = ", weather.dt);
 
   useEffect(() => {
     if (weather.weatherType) {
@@ -134,9 +136,24 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
           {weather.speed} <br />
           Wind
         </S.WindValue>
+        <S.DeleteIcon
+          onClick={() => {
+            dispatch(deleteTask(cardProps.id));
+          }}
+        >
+          <FaTimes />
+        </S.DeleteIcon>
+        <S.LocalTime>
+          {new Date(weather.dt).toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: false,
+          })}
+        </S.LocalTime>
       </S.CardContainer>
     </>
   );
 }
-
+//onAdd={(text) => dispatch(addTask(text, newItemFormId))}
+//const d = new Date(100000000000);
 export default WeatherCard;
