@@ -18,8 +18,9 @@ export type List = {
   tasks: Task[];
 };
 export type AppState = {
-  list: List;
   draggedItem: DragItem | null;
+  timeZoneApiDelay: number;
+  list: List;
 };
 
 // useImmerReducer. Here we renamed the state into draft, so we know that we can mutate it. Also we’ve
@@ -48,8 +49,8 @@ export const appStateReducer = (
       break;
     }
     case "MOVE_TASK": {
-      console.log("MOVE_TASK START idList = ", draft.list.idList);
-      if (draft.list.idList === "1") return;
+      //console.log("MOVE_TASK START idList = ", draft.list.idList);
+      //if (draft.list.idList === "1") return;
 
       const { draggedId, hoverId } = action.payload;
       const dragIndex = findItemIndexById(draft.list.tasks, draggedId);

@@ -1,5 +1,12 @@
 import { DetailedHTMLProps, HTMLAttributes } from "react";
-import { WeatherAPI, Main, Wind, Sys, Weather } from "../interfaces/weatherAPI";
+import {
+  WeatherAPI,
+  Main,
+  Wind,
+  Sys,
+  Weather,
+  Coord,
+} from "../interfaces/weatherAPI";
 
 export interface WeatherCardProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -11,4 +18,11 @@ export interface WeatherCardProps
   speed: Wind["speed"];
   country: Sys["country"];
   dt: WeatherAPI["dt"];
+  lon: Coord["lon"];
+  lat: Coord["lat"];
+  timeHourMinutes: string;
 }
+
+//dt: WeatherAPI["dt"];
+//time: TimeApi["time"];
+// timezone: WeatherAPI["timezone"];

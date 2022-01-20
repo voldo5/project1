@@ -21,13 +21,13 @@ export const CardContainer = styled.div<CardContainerProps>`
   margin: 1px;
   display: grid;
   grid-template:
-    "wicon wicon condition condition time dicon" 1fr
-    "wicon wicon place place place place" 1fr
-    "temperature temperature temperature date1 date1 date1" 0.9fr
-    "temperature temperature temperature date2 date2 date2" 0.9fr
-    "hicon hval picon pval sicon sval" 0.7fr
-    "hicon hval picon pval sicon sval" 0.7fr
-    / 1fr 1.5fr 1fr 1.5fr 1fr 1.5fr;
+    "wicon wicon condition condition time time dicon" 1fr
+    "wicon wicon place place place place place" 1fr
+    "temperature temperature temperature date1 date1 date1 date1" 0.9fr
+    "temperature temperature temperature date2 date2 date2 date2" 0.9fr
+    "hicon hval picon pval sicon sval sval" 0.7fr
+    "hicon hval picon pval sicon sval sval" 0.7fr
+    / 1fr 1.5fr 1fr 1.5fr 1fr 0.8fr 0.7fr;
   grid-gap: 0px;
   background: var(--color-grey-light);
   justify-self: center;

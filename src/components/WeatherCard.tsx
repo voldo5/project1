@@ -20,9 +20,7 @@ type CardProps = {
 //idTask
 function WeatherCard(cardProps: CardProps): JSX.Element {
   const [weatherState, setWeatherState] = useState("");
-
   let { draggedItem, list, findItemIndexById, dispatch } = useAppState();
-
   const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
@@ -48,6 +46,11 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
 
   let weather: WeatherCardProps = useGetWeather(cardProps.text);
   console.log("weather.dt = ", weather.dt);
+  let localTime = new Date(weather.dt * 1000).toLocaleString("en-US");
+  console.log("----weather.dt = ", localTime);
+  //var today = new Date();
+  //var milliseconds = new Date(milliseconds);
+  //var milliseconds = today.getMilliseconds();
 
   useEffect(() => {
     if (weather.weatherType) {
@@ -143,13 +146,7 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
         >
           <FaTimes />
         </S.DeleteIcon>
-        <S.LocalTime>
-          {new Date(weather.dt).toLocaleString("en-US", {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: false,
-          })}
-        </S.LocalTime>
+        <S.LocalTime>{weather.timeHourMinutes}</S.LocalTime>
       </S.CardContainer>
     </>
   );
@@ -157,3 +154,11 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
 //onAdd={(text) => dispatch(addTask(text, newItemFormId))}
 //const d = new Date(100000000000);
 export default WeatherCard;
+
+//   {
+//     new Date(weather.dt).toLocaleString("en-US", {
+//       hour: "numeric",
+//       minute: "numeric",
+//       hour12: false,
+//     });
+//   }
