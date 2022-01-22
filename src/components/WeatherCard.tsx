@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useState, useEffect } from "react";
 import * as S from "./weatherCard.styles";
 import { useGetWeather } from "../utils/useGetWeather";
@@ -11,18 +10,18 @@ import { useDrop } from "react-dnd";
 import { moveTask, addTask, deleteTask } from "../state/actions";
 import { isHidden } from "../utils/isHidden";
 import { WeatherData } from "./WeatherCard.props";
+import { CardSize } from "../interfaces/interface";
+import { CARD_SIZE } from "../state/data";
 
 type CardProps = {
   text: string;
   id: string;
   getRef: (val: any) => void;
   index: number;
-  height: number | null;
-  h0: number;
-  setH0: (val: number) => void;
+  cardSize: CardSize;
+  setCardSize: (cardSize: CardSize) => void;
 };
 
-//idTask
 function WeatherCard(cardProps: CardProps): JSX.Element {
   const [weatherState, setWeatherState] = useState("");
   let { draggedItem, tasks, findItemIndexById, dispatch } = useAppState();
@@ -55,7 +54,6 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
     }
   }, []);
 
-  //   const [h0, setH0] = useState<number>(100);
   const [widthWindow, setWidthWindow] = useState<number>(0);
 
   useEffect(() => {
@@ -77,13 +75,16 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
   useEffect(() => {
     if (cardProps.index === 0) {
       const rect = ref.current?.getBoundingClientRect();
-      const width = rect?.width;
-      let height = rect?.height;
+      const widthByFlex = rect?.width;
+      let heightByFlex = rect?.height;
 
-      if (width && height && height / width !== 0.6) {
-        height = width * 0.6;
-        console.log("------++height = ", height);
-        cardProps.setH0(height);
+      if (widthByFlex && heightByFlex && heightByFlex / widthByFlex !== 0.6) {
+        let heightFromWidth = widthByFlex * 0.6;
+        console.log("------++height = ", heightFromWidth);
+        cardProps.setCardSize({
+          width: widthByFlex,
+          height: heightFromWidth,
+        } as CardSize);
       }
 
       cardProps.getRef(ref.current);
@@ -134,7 +135,7 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
       <S.CardContainer
         ref={ref}
         isHidden={isHidden(draggedItem, "CARD", cardProps.id)}
-        height={cardProps.h0}
+        height={cardProps.cardSize.height}
       >
         <S.WeatherIcon>
           <i className={`wi ${weatherState}`}></i>
@@ -193,13 +194,5 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
   );
 }
 //onAdd={(text) => dispatch(addTask(text, newItemFormId))}
-//const d = new Date(100000000000);
-export default WeatherCard;
 
-//   {
-//     new Date(weather.dt).toLocaleString("en-US", {
-//       hour: "numeric",
-//       minute: "numeric",
-//       hour12: false,
-//     });
-//   }
+export default WeatherCard;

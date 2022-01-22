@@ -9,12 +9,13 @@ export const AddNewItem = (props: AddNewItemProps) => {
 
   if (showForm) {
     return (
-      <NewItemForm
-        onAdd={(text) => {
-          onAdd(text);
-          setShowForm(false);
-        }}
-      />
+      <div></div>
+      //   <NewItemForm
+      //     onAdd={(text) => {
+      //       onAdd(text);
+      //       setShowForm(false);
+      //     }}
+      //   />
     );
   }
 

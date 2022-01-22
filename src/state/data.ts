@@ -1,3 +1,4 @@
+import { CardSize } from "../interfaces/interface";
 import { AppState } from "./appStateReducer";
 
 export const appData: AppState = {
@@ -12,6 +13,11 @@ export const appData: AppState = {
     { idTask: "5", text: "Cherkasy" },
     { idTask: "6", text: "Mississauga, CA" },
   ],
+};
+
+export const CARD_SIZE: CardSize = {
+  width: 320,
+  height: 192,
 };
 
 // export const appData: AppState = {

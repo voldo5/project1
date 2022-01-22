@@ -19,7 +19,7 @@ export const NewItemForm = (props: NewItemFormProps): JSX.Element => {
   };
 
   return (
-    <S.NewItemFormContainer>
+    <S.NewItemFormContainer width={props.cardSize.width}>
       <S.NewItemInput
         ref={inputRef}
         value={text}

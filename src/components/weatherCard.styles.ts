@@ -7,11 +7,6 @@ import styled from "styled-components";
 //   opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
 // `;
 
-type CardContainerProps = {
-  isHidden?: boolean;
-  height: number;
-};
-
 // max-width: 320px;
 //   min-width: 192px;
 //   max-height: 200px;
@@ -35,6 +30,11 @@ type CardContainerProps = {
 //   width: 220px;
 //   max-height: 200px;
 //   min-height: 120px;
+type CardContainerProps = {
+  isHidden?: boolean;
+  height: number;
+};
+
 export const CardContainer = styled.div<CardContainerProps>`
   opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
   min-width: 192px;
