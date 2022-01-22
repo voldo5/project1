@@ -1,27 +1,5 @@
 import { DragItem } from "../DragItem";
 
-// export type Action =
-//   //   | {
-//   //       type: "ADD_LIST";
-//   //       payload: string;
-//   //     }
-// | {
-// type: "MOVE_LIST"
-// payload: {
-// draggedId: string
-// hoverId: string
-// }
-// }
-//   {
-//     type: "ADD_TASK";
-//     payload: { text: string; taskId: string };
-//   };
-
-// interface AddListAction {
-//   type: "ADD_LIST";
-//   payload: string;
-// }
-
 interface AddTaskAction {
   type: "ADD_TASK";
   payload: { text: string; taskId: string };
@@ -42,13 +20,6 @@ interface SetDraggedItem {
   type: "SET_DRAGGED_TASK";
   payload: DragItem | null;
 }
-
-// | {
-// type: "SET_DRAGGED_ITEM"
-// payload: DragItem | null
-// }
-
-//  | AddListAction
 
 export type Action =
   | AddTaskAction
@@ -83,3 +54,32 @@ export const setDraggedItem = (draggedItem: DragItem | null): Action => ({
   type: "SET_DRAGGED_TASK",
   payload: draggedItem,
 });
+
+// export type Action =
+//   //   | {
+//   //       type: "ADD_LIST";
+//   //       payload: string;
+//   //     }
+// | {
+// type: "MOVE_LIST"
+// payload: {
+// draggedId: string
+// hoverId: string
+// }
+// }
+//   {
+//     type: "ADD_TASK";
+//     payload: { text: string; taskId: string };
+//   };
+
+// interface AddListAction {
+//   type: "ADD_LIST";
+//   payload: string;
+// }
+
+// | {
+// type: "SET_DRAGGED_ITEM"
+// payload: DragItem | null
+// }
+
+//  | AddListAction

@@ -6,21 +6,16 @@ import {
   removeItemAtIndex,
 } from "../utils/arrayUtils";
 import { DragItem } from "../DragItem";
-import { WeatherCardProps } from "../components/WeatherCard.props";
 
 export type Task = {
   idTask: string;
   text: string;
 };
-export type List = {
-  idList: string;
-  text: string;
-  tasks: Task[];
-};
+
 export type AppState = {
   draggedItem: DragItem | null;
   timeZoneApiDelay: number;
-  list: List;
+  tasks: Task[];
 };
 
 // useImmerReducer. Here we renamed the state into draft, so we know that we can mutate it. Also we’ve
@@ -42,29 +37,26 @@ export const appStateReducer = (
     }
     case "ADD_TASK": {
       const { text, taskId } = action.payload;
-      draft.list.tasks.push({
+      draft.tasks.push({
         idTask: nanoid(),
         text: text,
       });
       break;
     }
     case "MOVE_TASK": {
-      //console.log("MOVE_TASK START idList = ", draft.list.idList);
-      //if (draft.list.idList === "1") return;
-
       const { draggedId, hoverId } = action.payload;
-      const dragIndex = findItemIndexById(draft.list.tasks, draggedId);
-      const hoverIndex = findItemIndexById(draft.list.tasks, hoverId);
-      console.log("dragIndex=", dragIndex, "hoverIndex=", hoverIndex);
+      const dragIndex = findItemIndexById(draft.tasks, draggedId);
+      const hoverIndex = findItemIndexById(draft.tasks, hoverId);
+      //console.log("dragIndex=", dragIndex, "hoverIndex=", hoverIndex);
 
-      draft.list.tasks = moveItem(draft.list.tasks, dragIndex, hoverIndex);
+      draft.tasks = moveItem(draft.tasks, dragIndex, hoverIndex);
       break;
     }
     case "DELETE_TASK": {
       const { taskId } = action.payload;
-      console.log("-----Number(taskId)= ", Number(taskId));
-      const deleteIndex = findItemIndexById(draft.list.tasks, taskId);
-      draft.list.tasks = removeItemAtIndex(draft.list.tasks, deleteIndex);
+      //console.log("-----Number(taskId)= ", Number(taskId));
+      const deleteIndex = findItemIndexById(draft.tasks, taskId);
+      draft.tasks = removeItemAtIndex(draft.tasks, deleteIndex);
       break;
     }
     // ...

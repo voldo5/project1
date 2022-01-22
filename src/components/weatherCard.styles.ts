@@ -9,13 +9,40 @@ import styled from "styled-components";
 
 type CardContainerProps = {
   isHidden?: boolean;
+  height: number;
 };
 
+// max-width: 320px;
+//   min-width: 192px;
+//   max-height: 200px;
+//flex-basis: 280px;
+// max-width: 320px;
+//   max-height: 200px;
+//   flex-shrink: 1;
+// export const CardPlaceholder = styled.div`
+//   width: 200px;
+//   height: 2px;
+//   margin: 5px;
+//   background-color: red;
+//flex-basis: 100%;
+// max-width: 320px;
+
+//   flex-basis: 200px;
+//   flex-grow: 1;
+// `;
+//   flex-basis: 220px;
+//   flex-grow: 1;
+//   width: 220px;
+//   max-height: 200px;
+//   min-height: 120px;
 export const CardContainer = styled.div<CardContainerProps>`
   opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
-  max-width: 320px;
   min-width: 192px;
-  max-height: 200px;
+  max-width: 320px;
+  height: ${(props) => {
+    console.log("----------props.height = ", props.height);
+    return props.height !== null ? props.height + "px" : "120px";
+  }};
   cursor: pointer;
   border-radius: 2px;
   margin: 1px;
@@ -30,11 +57,11 @@ export const CardContainer = styled.div<CardContainerProps>`
     / 1fr 1.5fr 1fr 1.5fr 1fr 0.8fr 0.7fr;
   grid-gap: 0px;
   background: var(--color-grey-light);
-  justify-self: center;
-  align-self: stretch;
-  flex-grow: 1;
-  flex-shrink: 1;
 `;
+//   justify-self: center;
+//   align-self: stretch;
+// flex-grow: 1;
+//   flex-shrink: 1;
 
 // export const CardContainer = styled.div<CardContainerProps>`
 //   grid-area: ${(props) => "area-" + props.gridArea};

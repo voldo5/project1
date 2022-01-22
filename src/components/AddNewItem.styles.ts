@@ -19,3 +19,11 @@ export const AddItemButton = styled.button<AddItemButtonProps>`
     background-color: #ffffff52;
   }
 `;
+
+// max-width: 320px;
+//   min-width: 192px;
+//   max-height: 200px;
+//   justify-self: center;
+//   align-self: stretch;
+//   flex-grow: 1;
+//   flex-shrink: 1;

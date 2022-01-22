@@ -10,17 +10,22 @@ import { useAppState } from "../state/AppStateContext";
 import { useDrop } from "react-dnd";
 import { moveTask, addTask, deleteTask } from "../state/actions";
 import { isHidden } from "../utils/isHidden";
-import { WeatherCardProps } from "./WeatherCard.props";
+import { WeatherData } from "./WeatherCard.props";
 
 type CardProps = {
   text: string;
   id: string;
+  getRef: (val: any) => void;
+  index: number;
+  height: number | null;
+  h0: number;
+  setH0: (val: number) => void;
 };
 
 //idTask
 function WeatherCard(cardProps: CardProps): JSX.Element {
   const [weatherState, setWeatherState] = useState("");
-  let { draggedItem, list, findItemIndexById, dispatch } = useAppState();
+  let { draggedItem, tasks, findItemIndexById, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
@@ -44,13 +49,48 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
     type: "CARD",
   });
 
-  let weather: WeatherCardProps = useGetWeather(cardProps.text);
-  console.log("weather.dt = ", weather.dt);
-  let localTime = new Date(weather.dt * 1000).toLocaleString("en-US");
-  console.log("----weather.dt = ", localTime);
-  //var today = new Date();
-  //var milliseconds = new Date(milliseconds);
-  //var milliseconds = today.getMilliseconds();
+  useEffect(() => {
+    if (cardProps.index === 0) {
+      cardProps.getRef(ref.current);
+    }
+  }, []);
+
+  //   const [h0, setH0] = useState<number>(100);
+  const [widthWindow, setWidthWindow] = useState<number>(0);
+
+  useEffect(() => {
+    function handleResize() {
+      console.log("resized to: ", window.innerWidth, "x", window.innerHeight);
+      setWidthWindow(window.innerWidth);
+    }
+    if (cardProps.index === 0) {
+      window.addEventListener("resize", handleResize);
+    }
+
+    return () => {
+      if (cardProps.index === 0) {
+        window.removeEventListener("resize", handleResize);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (cardProps.index === 0) {
+      const rect = ref.current?.getBoundingClientRect();
+      const width = rect?.width;
+      let height = rect?.height;
+
+      if (width && height && height / width !== 0.6) {
+        height = width * 0.6;
+        console.log("------++height = ", height);
+        cardProps.setH0(height);
+      }
+
+      cardProps.getRef(ref.current);
+    }
+  }, [widthWindow]);
+
+  let weather: WeatherData = useGetWeather(cardProps.text);
 
   useEffect(() => {
     if (weather.weatherType) {
@@ -88,11 +128,13 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
     size: "lg",
   };
 
+  //year: "numeric",
   return (
     <>
       <S.CardContainer
         ref={ref}
         isHidden={isHidden(draggedItem, "CARD", cardProps.id)}
+        height={cardProps.h0}
       >
         <S.WeatherIcon>
           <i className={`wi ${weatherState}`}></i>
@@ -113,7 +155,6 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
         </S.CalendarDate1>
         <S.CalendarDate2>
           {new Date().toLocaleString("en-US", {
-            year: "numeric",
             month: "long",
             day: "numeric",
           })}

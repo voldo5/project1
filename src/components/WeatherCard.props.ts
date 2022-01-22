@@ -6,9 +6,9 @@ import {
   Sys,
   Weather,
   Coord,
-} from "../interfaces/weatherAPI";
+} from "../interfaces/WeatherAPI";
 
-export interface WeatherCardProps
+export interface WeatherData
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   temp: Main["temp"];
   humidity: Main["humidity"];

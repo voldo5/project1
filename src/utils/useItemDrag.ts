@@ -14,7 +14,7 @@ export const useItemDrag = (item: DragItem) => {
   const [, drag, preview] = useDrag({
     type: item.type,
     item: () => {
-      console.log("----setDraggedItem(item)", item);
+      //console.log("----setDraggedItem(item)", item);
       dispatch(setDraggedItem(item));
       return item;
     },

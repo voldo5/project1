@@ -52,37 +52,3 @@ export type Wind = {
   speed: number;
   deg: number;
 };
-
-// export interface TimeApi {
-//   year: number;
-//   month: number;
-//   day: number;
-//   hour: number;
-//   minute: number;
-//   seconds: number;
-//   milliSeconds: number;
-//   dateTime: Date;
-//   date: string;
-//   time: string;
-//   timeZone: string;
-//   dayOfWeek: string;
-//   dstActive: boolean;
-// }
-
-export interface TimeZoneAPI {
-  status: string;
-  message: string;
-  countryCode: string;
-  countryName: string;
-  regionName: string;
-  cityName: string;
-  zoneName: string;
-  abbreviation: string;
-  gmtOffset: number;
-  dst: string;
-  zoneStart: number;
-  zoneEnd: number;
-  nextAbbreviation: string;
-  timestamp: number;
-  formatted: string;
-}

@@ -1,64 +1,55 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
-//import { createContext, useContext, Dispatch, FC } from "react";
-import { getWeatherInfo, getTimeZoneInfo } from "./apiUtils";
-import { WeatherCardProps } from "../components/WeatherCard.props";
+import { useEffect, useState, useContext, useRef } from "react";
+import { getWeatherApiData, getTimeZoneApiData } from "./apiUtils";
+import { WeatherData } from "../components/WeatherCard.props";
 import { useAppState } from "../state/AppStateContext";
 
-export const useGetWeather = (city: string): WeatherCardProps => {
-  const [weatherInfoState, setWeatherInfoState] = useState<WeatherCardProps>(
-    {} as WeatherCardProps
+export const useGetWeather = (city: string): WeatherData => {
+  const [weatherDataState, setWeatherDataState] = useState<WeatherData>(
+    {} as WeatherData
   );
-
   let { timeZoneApiDelay, incrementDelay } = useAppState();
 
   useEffect(() => {
     const f = async () => {
-      const weatherInfo = await getWeatherInfo(city);
-      console.log("--weatherInfo = ", weatherInfo);
-      setWeatherInfoState(weatherInfo);
+      const openWeatherApiData = await getWeatherApiData(city);
+      console.log("--openWeatherApiData = ", openWeatherApiData);
+      setWeatherDataState(openWeatherApiData);
     };
 
     f();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const timerRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     const f1 = async () => {
-      const timeZoneInfo = await getTimeZoneInfo(
-        weatherInfoState.lon,
-        weatherInfoState.lat
+      const timeZoneApiData = await getTimeZoneApiData(
+        weatherDataState.lon,
+        weatherDataState.lat
       );
-      console.log("----timeZoneInfo = ", timeZoneInfo);
-      let localTimeHM = new Date(timeZoneInfo.timestamp * 1000).toLocaleString(
-        "en-US",
-        {
-          hour: "numeric",
-          minute: "numeric",
-          hour12: false,
-        }
-      );
-      console.log("----localTimeHM = ", localTimeHM);
-      setWeatherInfoState({
-        ...weatherInfoState,
-        timeHourMinutes: localTimeHM,
+
+      setWeatherDataState({
+        ...weatherDataState,
+        timeHourMinutes:
+          Object.keys(timeZoneApiData).length > 0
+            ? timeZoneApiData.formatted.slice(11, 16)
+            : "",
       });
     };
 
     if (
-      Object.keys(weatherInfoState).length > 0 &&
-      weatherInfoState.timeHourMinutes === ""
+      Object.keys(weatherDataState).length > 0 &&
+      weatherDataState.timeHourMinutes === ""
     ) {
-      incrementDelay();
-      console.log("timeZoneApiDelay= ", timeZoneApiDelay);
+      // TimeZoneDb free plan: maximum 1 request per 1 second, so set delay for request
+      incrementDelay(1200);
       timerRef.current = setTimeout(f1, timeZoneApiDelay);
     }
 
     return () => {
       timerRef.current && clearTimeout(timerRef.current);
     };
-  }, [weatherInfoState.dt]);
+  }, [weatherDataState.dt]);
 
-  return weatherInfoState;
+  return weatherDataState;
 };
