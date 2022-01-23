@@ -19,6 +19,7 @@ export const CARD_SIZE: CardSize = {
   width: 320,
   height: 192,
 };
+
 //  h 120-200    w 192-320
 // export const appData: AppState = {
 //   draggedItem: null,

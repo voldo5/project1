@@ -13,10 +13,11 @@ import { WeatherData } from "./WeatherCard.props";
 import { CardSize } from "../interfaces/interface";
 import { CARD_SIZE } from "../state/data";
 
+//getRef: (val: any) => void;
 type CardProps = {
   text: string;
   id: string;
-  getRef: (val: any) => void;
+
   index: number;
   cardSize: CardSize;
   setCardSize: (cardSize: CardSize) => void;
@@ -26,6 +27,7 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
   const [weatherState, setWeatherState] = useState("");
   let { draggedItem, tasks, findItemIndexById, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
+  //const ref = useRef<HTMLButtonElement>(null);
 
   const [, drop] = useDrop({
     accept: "CARD",
@@ -37,6 +39,12 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
         if (draggedItem.id === cardProps.id) {
           return;
         }
+        console.log(
+          "++++++++++++++ drop draggedItem.id, cardProps.id = ",
+          draggedItem.id,
+          " ",
+          cardProps.id
+        );
         dispatch(moveTask(draggedItem.id, cardProps.id));
       }
     },
@@ -48,12 +56,6 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
     type: "CARD",
   });
 
-  useEffect(() => {
-    if (cardProps.index === 0) {
-      cardProps.getRef(ref.current);
-    }
-  }, []);
-
   const [widthWindow, setWidthWindow] = useState<number>(0);
 
   useEffect(() => {
@@ -61,33 +63,38 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
       console.log("resized to: ", window.innerWidth, "x", window.innerHeight);
       setWidthWindow(window.innerWidth);
     }
-    if (cardProps.index === 0) {
+    if (tasks.length > 0 && tasks[0].idTask === cardProps.id) {
       window.addEventListener("resize", handleResize);
     }
 
     return () => {
-      if (cardProps.index === 0) {
+      if (tasks.length > 0 && tasks[0].idTask === cardProps.id) {
         window.removeEventListener("resize", handleResize);
       }
     };
-  }, []);
+  }, [tasks]);
 
   useEffect(() => {
-    if (cardProps.index === 0) {
+    console.log(
+      "tasks.length = ",
+      tasks.length,
+      " tasks[0].idTask = ",
+      tasks[0].idTask,
+      " cardProps.id = ",
+      cardProps.id
+    );
+    if (tasks.length > 0 && tasks[0].idTask === cardProps.id) {
       const rect = ref.current?.getBoundingClientRect();
-      const widthByFlex = rect?.width;
-      let heightByFlex = rect?.height;
 
-      if (widthByFlex && heightByFlex && heightByFlex / widthByFlex !== 0.6) {
-        let heightFromWidth = widthByFlex * 0.6;
+      if (rect?.width && rect?.height && rect?.height / rect?.width !== 0.6) {
+        let heightFromWidth = rect?.width * 0.6;
         console.log("------++height = ", heightFromWidth);
         cardProps.setCardSize({
-          width: widthByFlex,
+          width: rect?.width,
           height: heightFromWidth,
         } as CardSize);
       }
-
-      cardProps.getRef(ref.current);
+      //cardProps.getRef(ref.current);
     }
   }, [widthWindow]);
 
@@ -122,7 +129,8 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
     }
   }, [weather.weatherType]);
 
-  drag(drop(ref));
+  let dr = drag(drop(ref));
+  console.log("++++++++++++++ drag = ", dr);
 
   const flagProps = {
     code: weather.country ? weather.country.toLowerCase() : "ua",

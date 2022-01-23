@@ -12,23 +12,20 @@ export const App = () => {
 
   //const refs = useRef<HTMLDivElement[]>([]);
   //const ref = useRef<HTMLDivElement>(null);
-  //ref={index === 0 ? refs[index] : undefined}
-  const ref = useRef(createRef<HTMLDivElement>());
-  //const [cardSize, setCardSize] = useState<{width: number, height: number}>({width: 160, height: 280});
-  const [cardSize, setCardSize] = useState<CardSize>(CARD_SIZE);
-  //   const [cardSize, setCardSize] = useState<CardSize>({
-  //     width: 160,
-  //     height: 280,
-  //   });
 
-  const getRef = (val: any) => {
-    ref.current = val;
-    console.log("getRef val = ", val);
-  };
+  //const ref = useRef(createRef<HTMLDivElement>());
+  const ref = useRef(createRef<HTMLButtonElement>());
+  const [cardSize, setCardSize] = useState<CardSize>(CARD_SIZE);
+
+  //   const getRef = (val: any) => {
+  //     ref.current = val;
+  //     console.log("getRef val = ", val);
+  //   };
 
   //console.log("tasks = ", tasks);
   let newItemFormId: string = (tasks.length + 1).toString();
 
+  //getRef={getRef}
   return (
     <AppContainer>
       {tasks.map((task, index) => (
@@ -37,7 +34,6 @@ export const App = () => {
           id={task.idTask}
           key={task.idTask}
           index={index}
-          getRef={getRef}
           //   height={null}
           cardSize={cardSize}
           setCardSize={setCardSize}
