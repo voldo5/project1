@@ -12,7 +12,7 @@ export const useGetWeather = (city: string): WeatherData => {
   useEffect(() => {
     const f = async () => {
       const openWeatherApiData = await getWeatherApiData(city);
-      console.log("--openWeatherApiData = ", openWeatherApiData);
+      //console.log("--openWeatherApiData = ", openWeatherApiData);
       setWeatherDataState(openWeatherApiData);
     };
 

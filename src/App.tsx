@@ -23,10 +23,10 @@ export const App = () => {
 
   const getRef = (val: any) => {
     ref.current = val;
-    console.log("val = ", val);
+    console.log("getRef val = ", val);
   };
 
-  console.log("tasks = ", tasks);
+  //console.log("tasks = ", tasks);
   let newItemFormId: string = (tasks.length + 1).toString();
 
   return (

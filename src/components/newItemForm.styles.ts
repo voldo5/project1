@@ -2,12 +2,24 @@ import styled from "styled-components";
 
 type NewItemProps = {
   width: number;
+  height: number;
 };
+//   flex-basis: ${(props) => {
+//     console.log("----------N props.width = ", props.width);
+//     return props.width !== null ? props.width + "px" : "320px";
+//   }};
+//   flex-grow: 0;
+//   flex-shrink: 0;
 export const NewItemFormContainer = styled.div<NewItemProps>`
   width: ${(props) => {
-    console.log("----------props.width = ", props.width);
-    return props.width !== null ? props.width + "px" : "120px";
+    console.log("----------N props.width = ", props.width);
+    return props.width !== null ? props.width + "px" : "320px";
   }};
+  height: ${(props) => {
+    console.log("----------N props.width = ", props.height);
+    return props.height !== null ? props.height + "px" : "200px";
+  }};
+
   min-width: 192px;
   max-width: 320px;
   display: flex;
