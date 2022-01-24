@@ -12,11 +12,11 @@ type NewItemProps = {
 //   flex-shrink: 0;
 export const NewItemFormContainer = styled.div<NewItemProps>`
   width: ${(props) => {
-    console.log("----------N props.width = ", props.width);
+    //console.log("----------N props.width = ", props.width);
     return props.width !== null ? props.width + "px" : "320px";
   }};
   height: ${(props) => {
-    console.log("----------N props.width = ", props.height);
+    //console.log("----------N props.width = ", props.height);
     return props.height !== null ? props.height + "px" : "200px";
   }};
 

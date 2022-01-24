@@ -33,7 +33,7 @@ export const App = () => {
           text={task.text}
           id={task.idTask}
           key={task.idTask}
-          index={index}
+          //   index={index}
           //   height={null}
           cardSize={cardSize}
           setCardSize={setCardSize}

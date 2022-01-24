@@ -4,11 +4,12 @@ import { useGetWeather } from "../utils/useGetWeather";
 import FlagIcon from "./FlagIcon.js";
 import { FaTimes } from "react-icons/fa";
 import { useRef } from "react";
-import { useItemDrag } from "../utils/useItemDrag";
 import { useAppState } from "../state/AppStateContext";
 import { useDrop } from "react-dnd";
 import { moveTask, addTask, deleteTask } from "../state/actions";
+import { useItemDrag } from "../utils/useItemDrag";
 import { isHidden } from "../utils/isHidden";
+import useDebounce from "../utils/useDebounce";
 import { WeatherData } from "./WeatherCard.props";
 import { CardSize } from "../interfaces/interface";
 import { CARD_SIZE } from "../state/data";
@@ -18,7 +19,7 @@ type CardProps = {
   text: string;
   id: string;
 
-  index: number;
+  //   index: number;
   cardSize: CardSize;
   setCardSize: (cardSize: CardSize) => void;
 };
@@ -57,13 +58,14 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
   });
 
   const [widthWindow, setWidthWindow] = useState<number>(0);
+  const windowWidthDebounced = useDebounce<number>(widthWindow, 100);
 
   useEffect(() => {
     function handleResize() {
-      console.log("resized to: ", window.innerWidth, "x", window.innerHeight);
       setWidthWindow(window.innerWidth);
     }
     if (tasks.length > 0 && tasks[0].idTask === cardProps.id) {
+      console.log("resized to: ", window.innerWidth, "x", window.innerHeight);
       window.addEventListener("resize", handleResize);
     }
 
@@ -88,7 +90,6 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
 
       if (rect?.width && rect?.height && rect?.height / rect?.width !== 0.6) {
         let heightFromWidth = rect?.width * 0.6;
-        console.log("------++height = ", heightFromWidth);
         cardProps.setCardSize({
           width: rect?.width,
           height: heightFromWidth,
@@ -96,7 +97,8 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
       }
       //cardProps.getRef(ref.current);
     }
-  }, [widthWindow]);
+  }, [windowWidthDebounced]);
+  //   }, [widthWindow]);
 
   let weather: WeatherData = useGetWeather(cardProps.text);
 
@@ -130,7 +132,7 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
   }, [weather.weatherType]);
 
   let dr = drag(drop(ref));
-  console.log("++++++++++++++ drag = ", dr);
+  //console.log("++++++++++++++ drag = ", dr);
 
   const flagProps = {
     code: weather.country ? weather.country.toLowerCase() : "ua",

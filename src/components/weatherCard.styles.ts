@@ -40,7 +40,7 @@ export const CardContainer = styled.div<CardContainerProps>`
   min-width: 192px;
   max-width: 320px;
   height: ${(props) => {
-    console.log("----------props.height = ", props.height);
+    //console.log("----------props.height = ", props.height);
     return props.height !== null ? props.height + "px" : "120px";
   }};
   cursor: pointer;
