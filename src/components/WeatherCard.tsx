@@ -77,14 +77,6 @@ function WeatherCard(cardProps: CardProps): JSX.Element {
   }, [tasks]);
 
   useEffect(() => {
-    console.log(
-      "tasks.length = ",
-      tasks.length,
-      " tasks[0].idTask = ",
-      tasks[0].idTask,
-      " cardProps.id = ",
-      cardProps.id
-    );
     if (tasks.length > 0 && tasks[0].idTask === cardProps.id) {
       const rect = ref.current?.getBoundingClientRect();
 

@@ -1,10 +1,18 @@
-import { useState, createContext, useContext, Dispatch, FC } from "react";
+import {
+  useState,
+  createContext,
+  useContext,
+  useEffect,
+  Dispatch,
+} from "react";
 import { appStateReducer, Task } from "./appStateReducer";
 import { Action } from "./actions";
 import { useImmerReducer } from "use-immer";
 import { findItemIndexById } from "../utils/arrayUtils";
 import { DragItem } from "../DragItem";
-import { appData } from "./data";
+import { AppState } from "../state/appStateReducer";
+import { withInitialState } from "../withInitialState";
+import { save } from "../api";
 
 type AppStateContextProps = {
   tasks: Task[];
@@ -15,35 +23,44 @@ type AppStateContextProps = {
   incrementDelay(msDelay: number): void;
 };
 
+type AppStateProviderProps = {
+  children: React.ReactNode;
+  initialState: AppState;
+};
+
 const AppStateContext = createContext<AppStateContextProps>(
   {} as AppStateContextProps
 );
 
-//use useImmerReducer instead of useReducer
-export const AppStateProvider: FC = ({ children }) => {
-  const [state, dispatch] = useImmerReducer(appStateReducer, appData);
-  const { draggedItem, tasks } = state;
-  const [timeZoneApiDelay, setTimeZoneApiDelay] = useState(0);
-  function incrementDelay(msDelay: number): void {
-    setTimeZoneApiDelay(timeZoneApiDelay + msDelay);
+export const AppStateProvider = withInitialState<AppStateProviderProps>(
+  ({ children, initialState }) => {
+    const [state, dispatch] = useImmerReducer(appStateReducer, initialState);
+    //console.log("initialState1 = ", initialState);
+    //console.log("state = ", state);
+    useEffect(() => {
+      save(state);
+    }, [state]);
+    const { draggedItem, tasks } = state;
+    const [timeZoneApiDelay, setTimeZoneApiDelay] = useState(0);
+    function incrementDelay(msDelay: number): void {
+      setTimeZoneApiDelay(timeZoneApiDelay + msDelay);
+    }
+    return (
+      <AppStateContext.Provider
+        value={{
+          tasks,
+          draggedItem,
+          timeZoneApiDelay,
+          dispatch,
+          findItemIndexById,
+          incrementDelay,
+        }}
+      >
+        {children}
+      </AppStateContext.Provider>
+    );
   }
-
-  //console.log("tasks1 = ", tasks);
-  return (
-    <AppStateContext.Provider
-      value={{
-        tasks,
-        draggedItem,
-        timeZoneApiDelay,
-        dispatch,
-        findItemIndexById,
-        incrementDelay,
-      }}
-    >
-      {children}
-    </AppStateContext.Provider>
-  );
-};
+);
 
 export const useAppState = () => {
   return useContext(AppStateContext);
