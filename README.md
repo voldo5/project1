@@ -3,7 +3,8 @@
 ![alt](./src/assets/WeatherApp.jpg)
 ### Key Words
 #### React: useState, useEffect, useReduce, useContext, useRef
-#### Custom Hooks: useFocus, useAppState, useGetWeather, useImmerReducer, useItemDrag, useDrop
+#### Custom Hooks: useFocus, useAppState, useGetWeather, useImmerReducer, useItemDrag, 
+#### useDrop, useDebounce
 #### Typescript: fetch, async, await, try, catch, destructuring, spread operator, rest operator, slice, date.toLocaleDateString
 #### API: Open Weather Api
 #### Icons: Weather icons, React icons, react-flag-icon-css
