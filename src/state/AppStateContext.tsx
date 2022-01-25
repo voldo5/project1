@@ -38,6 +38,7 @@ export const AppStateProvider = withInitialState<AppStateProviderProps>(
     //console.log("initialState1 = ", initialState);
     //console.log("state = ", state);
     useEffect(() => {
+      //todo try catch
       save(state);
     }, [state]);
     const { draggedItem, tasks } = state;
