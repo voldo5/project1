@@ -27,7 +27,8 @@ export function withInitialState<TProps>(
             ? setInitialState(data)
             : setInitialState(initialState);
         } catch (e) {
-          setError(e as Error);
+          setInitialState(initialState);
+          //setError(e as Error);
         }
         setIsLoading(false);
       };

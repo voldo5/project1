@@ -1,4 +1,5 @@
 import { AppState } from "./state/appStateReducer";
+import { appData } from "./state/data";
 
 export const save = (payload: AppState) => {
   //   console.log(
@@ -27,6 +28,9 @@ export const load = () => {
       if (response.ok) {
         return response.json() as Promise<AppState>;
       } else {
+        //return JSON.stringify(appData);
+        //return new Promise<AppState>(appData);
+        //return appData as Promise<AppState>;
         throw new Error("Error while loading the state.");
       }
     }
